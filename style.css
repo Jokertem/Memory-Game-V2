@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+  background: rgb(29, 205, 14);
+  background: linear-gradient(
+    90deg,
+    rgba(29, 205, 14, 1) 33%,
+    rgba(105, 207, 12, 1) 58%,
+    rgba(45, 246, 93, 1) 92%
+  );
+}
+
+.startWindow {
+  display: flex;
+
+  flex-direction: column;
+  height: 100vh;
+
+  align-items: center;
+}
+.gameSettings {
+  border: 2px, solid, black;
+  width: 50vw;
+
+  margin: auto;
+  padding: 20px;
+  display: flex;
+
+  align-items: center;
+  flex-direction: column;
+}
+.nameInput {
+  display: flex;
+  flex-direction: column;
+  background: none;
+}
+#nameOne,
+#nameTwo {
+  text-align: center;
+  height: 25px;
+  width: 190px;
+  height: 35px;
+  font-weight: bold;
+}
+#nameOne {
+  margin-bottom: 10px;
+}
+#nameTwo {
+  margin-bottom: 5px;
+}
+#playersAccount {
+  margin-bottom: 25px;
+}
+.startButton {
+  width: 90px;
+  height: 40px;
+  margin-top: 20px;
+}
+.hide {
+  display: none;
+}
