@@ -1,21 +1,15 @@
 * {
   margin: 0;
   padding: 0;
-  background: rgb(29, 205, 14);
-  background: linear-gradient(
-    90deg,
-    rgba(29, 205, 14, 1) 33%,
-    rgba(105, 207, 12, 1) 58%,
-    rgba(45, 246, 93, 1) 92%
-  );
+  background-color: aquamarine;
+  box-sizing: border-box;
 }
 
 .startWindow {
   display: flex;
 
   flex-direction: column;
-  height: 100vh;
-
+  margin-top: 15%;
   align-items: center;
 }
 .gameSettings {
@@ -55,6 +49,49 @@
   width: 90px;
   height: 40px;
   margin-top: 20px;
+}
+
+.onePlayer {
+  border: 2px solid black;
+  width: 180px;
+  margin: auto;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.cardsContainer {
+  display: flex;
+  justify-content: center;
+}
+.cards-12 {
+  display: grid;
+  grid-template-columns: repeat(4, 140px);
+  grid-template-rows: repeat(3, 170px);
+}
+.cards-16 {
+  display: grid;
+  grid-template-columns: repeat(8, 140px);
+  grid-template-rows: repeat(4, 170px);
+}
+.cards-24 {
+  display: grid;
+  grid-template-columns: repeat(8, 140px);
+  grid-template-rows: repeat(7, 170px);
+}
+.card {
+  width: 120px;
+  height: 150px;
+  transition: 0.3s;
+}
+.card:hover {
+  width: 130px;
+  height: 160px;
+  transform: translateX(-5px);
+  -webkit-box-shadow: 1px 5px 16px 5px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 1px 5px 16px 5px rgba(66, 68, 90, 1);
+  box-shadow: 1px 5px 16px 5px rgba(66, 68, 90, 1);
 }
 .hide {
   display: none;

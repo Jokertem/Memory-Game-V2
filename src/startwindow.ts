@@ -7,7 +7,7 @@ const CardsAccountSelect: HTMLInputElement =
 const StartButton: HTMLButtonElement = document.querySelector(".startButton");
 
 let playerAccout: string = "1p";
-let cardsAcount: string = "8c";
+let cardsAcount: string = "12";
 
 let FirstPlayer: string = "FirstPlayer";
 let SecondPlayer: string = "SecondPlayer";
@@ -15,12 +15,14 @@ let SecondPlayer: string = "SecondPlayer";
 const SetPlayerAccount = () => {
   const FirstInput: HTMLInputElement = document.createElement("input");
   FirstInput.placeholder = "First Player Name";
+  FirstInput.autocomplete = "off";
   FirstInput.addEventListener("change", (e) => {
     FirstPlayer = e.target.value;
     console.log(FirstPlayer);
   });
   const SecondInput: HTMLInputElement = document.createElement("input");
   SecondInput.placeholder = "Second Player Name";
+  SecondInput.autocomplete = "off";
   SecondInput.addEventListener("change", (e) => {
     SecondPlayer = e.target.value;
     console.log(SecondPlayer);
@@ -47,4 +49,7 @@ CardsAccountSelect.addEventListener("change", (e) => {
 });
 StartButton.addEventListener("click", () => {
   StartWindow.classList.add("hide");
+  Game.classList.remove("hide");
+  renderPanel();
+  setCards();
 });
