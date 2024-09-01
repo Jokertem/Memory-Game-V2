@@ -6,6 +6,7 @@ let moves: number = 0;
 let pairs: number = 0;
 let clicks = 0;
 const renderPanel = () => {
+  gamePanel.innerHTML = "";
   if (playerAccout == "1p") {
     gamePanel.classList.add("onePlayer");
     const PlayerName: HTMLElement = document.createElement("b");
@@ -34,16 +35,55 @@ const setCards = () => {
   }
 
   for (let index = 0; index < Number(cardsAcount); index++) {
-    const card = document.createElement("img");
-    card.classList.add("card");
-    const cardID = Math.floor(Math.random() * cardsImg.length);
-    card.id = cardsImg[cardID];
-    cardsImg.splice(cardID, 1);
-    card.src = `/Cards/Card-${0}.png`;
-    card.addEventListener("click", () => OpenCard(index));
+    const card = {
+      state: "close",
+      photo: `Card-${0}.png`,
+    };
     cards.push(card);
-    CardsContainer.appendChild(card);
   }
-  console.log(cards);
+  cards.forEach((element, index) => {
+    const cardID = Math.floor(Math.random() * cardsImg.length);
+
+    element.photo = `./Cards/Card-${cardsImg[cardID]}.jpg`;
+    const i = cardsImg.indexOf(cardsImg[cardID]);
+
+    cardsImg.splice(i, 1);
+  });
 };
-const OpenCard = (i) => {};
+const renderCards = () => {
+  CardsContainer.innerHTML = "";
+  cards.forEach((element, index) => {
+    const card_ = document.createElement("img");
+    card_.classList.add("card");
+
+    if (element.state == "close") {
+      card_.src = `./Cards/Card-0.png`;
+      card_.addEventListener("click", () => OpenCard(index));
+    } else if (element.state == "open") {
+      card_.src = element.photo;
+    }
+
+    CardsContainer.appendChild(card_);
+  });
+};
+const OpenCard = (i) => {
+  cards[i].state = "open";
+
+  clicks++;
+  if (clicks == 1) {
+    const FirstCard = cards[i].photo;
+    console.log("ss");
+  } else if (clicks == 2) {
+    const SecondCard = cards[i].photo;
+    moves++;
+    clicks = 0;
+
+    // CheckPair(FirstCard, SecondCard);
+  }
+  renderPanel();
+  renderCards();
+};
+const CheckPair = (v1: string, v2: string) => {
+  console.log(v1);
+  console.log(v2);
+};

@@ -46,4 +46,5 @@ StartButton.addEventListener("click", () => {
     Game.classList.remove("hide");
     renderPanel();
     setCards();
+    renderCards();
 });
