@@ -50,6 +50,12 @@ CardsAccountSelect.addEventListener("change", (e) => {
 StartButton.addEventListener("click", () => {
   StartWindow.classList.add("hide");
   Game.classList.remove("hide");
+  if (FirstPlayer.trim() == "") {
+    FirstPlayer = "FirstPlayer";
+  }
+  if (SecondPlayer.trim() == "") {
+    SecondPlayer = "SecondPlayer";
+  }
   renderPanel();
   setCards();
   renderCards();

@@ -3,8 +3,15 @@ const gamePanel: HTMLDivElement = document.querySelector(".game_info");
 const CardsContainer: HTMLDivElement = document.querySelector(".cards");
 
 let moves: number = 0;
-let pairs: number = 0;
+let pairs1: number = 0;
+let pairs2: number = 0;
 let clicks = 0;
+
+let turnInfo = `${FirstPlayer} Turn`;
+let turn = 1;
+
+const PairsCounterFirst: HTMLElement = document.createElement("b");
+const PairsCounterSecond: HTMLElement = document.createElement("b");
 const renderPanel = () => {
   gamePanel.innerHTML = "";
   if (playerAccout == "1p") {
@@ -15,12 +22,35 @@ const renderPanel = () => {
     const MovesCounter: HTMLElement = document.createElement("b");
     MovesCounter.innerText = `Moves ${moves}`;
 
-    const PairsCounter: HTMLElement = document.createElement("b");
-    PairsCounter.innerText = `Pairs ${pairs}/${cardsAcount}`;
+    PairsCounterFirst.innerText = `Pairs ${pairs1}/${Number(cardsAcount) / 2}`;
 
     gamePanel.appendChild(PlayerName);
     gamePanel.appendChild(MovesCounter);
-    gamePanel.appendChild(PairsCounter);
+    gamePanel.appendChild(PairsCounterFirst);
+  } else {
+    gamePanel.classList.add("twoPlayers");
+    const moveTurn = document.createElement("b");
+    moveTurn.innerText = turnInfo;
+    const FirstPlayerInfo = document.createElement("div");
+    const SecondPlayerInfo = document.createElement("div");
+    const PlayerName1: HTMLElement = document.createElement("b");
+    PlayerName1.innerText = FirstPlayer;
+    const PlayerName2: HTMLElement = document.createElement("b");
+    PlayerName2.innerText = SecondPlayer;
+
+    PairsCounterFirst.innerText = ` Pairs ${pairs1}/${Number(cardsAcount) / 2}`;
+    PairsCounterSecond.innerText = ` Pairs ${pairs2}/${
+      Number(cardsAcount) / 2
+    }`;
+
+    FirstPlayerInfo.appendChild(PlayerName1);
+    FirstPlayerInfo.appendChild(PairsCounterFirst);
+    SecondPlayerInfo.appendChild(PlayerName2);
+    SecondPlayerInfo.appendChild(PairsCounterSecond);
+
+    gamePanel.appendChild(FirstPlayerInfo);
+    gamePanel.appendChild(SecondPlayerInfo);
+    gamePanel.appendChild(moveTurn);
   }
 };
 const cards = [];
@@ -50,6 +80,7 @@ const setCards = () => {
     cardsImg.splice(i, 1);
   });
 };
+
 const renderCards = () => {
   CardsContainer.innerHTML = "";
   cards.forEach((element, index) => {
@@ -61,29 +92,112 @@ const renderCards = () => {
       card_.addEventListener("click", () => OpenCard(index));
     } else if (element.state == "open") {
       card_.src = element.photo;
+    } else if (element.state == "closeHide") {
+      card_.src = `./Cards/Card-0.png`;
+      card_.addEventListener("click", HideCard);
+    } else if (element.state == "openHide") {
+      card_.src = element.photo;
+      card_.addEventListener("click", HideCard);
+    } else if (element.state == "Pair") {
+      card_.src = element.photo;
+      card_.classList.add("Pair");
     }
-
     CardsContainer.appendChild(card_);
   });
 };
+let FirstCard = "V";
+let SecondCard = "V";
 const OpenCard = (i) => {
   cards[i].state = "open";
+  renderCards();
 
   clicks++;
-  if (clicks == 1) {
-    const FirstCard = cards[i].photo;
-    console.log("ss");
-  } else if (clicks == 2) {
-    const SecondCard = cards[i].photo;
-    moves++;
-    clicks = 0;
+  if (playerAccout == "1p") {
+    if (clicks == 1) {
+      FirstCard = cards[i].photo;
+    } else if (clicks == 2) {
+      SecondCard = cards[i].photo;
+      moves++;
+      if (FirstCard != SecondCard) {
+        cards.forEach((element) => {
+          if (element.state == "open") {
+            element.state = "openHide";
+          } else if (element.state == "close") {
+            element.state = "closeHide";
+          }
+        });
+      } else {
+        pairs1++;
+        cards.forEach((element) => {
+          if (element.photo == FirstCard || element.photo == SecondCard) {
+            element.state = "Pair";
+          }
+        });
+      }
+      clicks = 0;
+      if (pairs1 >= Number(cardsAcount) / 2) {
+        PairsCounterFirst.classList.add("win");
+      }
+    }
+  } else if (playerAccout == "2p") {
+    if (clicks == 1) {
+      FirstCard = cards[i].photo;
+    } else if (clicks == 2) {
+      SecondCard = cards[i].photo;
 
-    // CheckPair(FirstCard, SecondCard);
+      if (FirstCard != SecondCard) {
+        cards.forEach((element) => {
+          if (element.state == "open") {
+            element.state = "openHide";
+          } else if (element.state == "close") {
+            element.state = "closeHide";
+          }
+        });
+      } else {
+        if (turn == 1) {
+          pairs1++;
+        } else {
+          pairs2++;
+        }
+        cards.forEach((element) => {
+          if (element.photo == FirstCard || element.photo == SecondCard) {
+            element.state = "Pair";
+          }
+        });
+      }
+      if (FirstCard != SecondCard) {
+        if (turn == 1) {
+          turn = 2;
+          turnInfo = `${SecondPlayer} Turn`;
+        } else {
+          turn = 1;
+          turnInfo = `${FirstPlayer} Turn`;
+        }
+        console.log(turn);
+      }
+
+      clicks = 0;
+    }
+    if (pairs1 + pairs2 >= Number(cardsAcount) / 2) {
+      if (pairs1 > pairs2) {
+        PairsCounterFirst.classList.add("win");
+      } else if (pairs1 < pairs2) {
+        PairsCounterSecond.classList.add("win");
+      } else if (pairs1 == pairs2) {
+        PairsCounterFirst.classList.add("win");
+        PairsCounterSecond.classList.add("win");
+      }
+    }
   }
   renderPanel();
   renderCards();
 };
-const CheckPair = (v1: string, v2: string) => {
-  console.log(v1);
-  console.log(v2);
+
+const HideCard = () => {
+  cards.forEach((element) => {
+    if (element.state != "Pair") {
+      element.state = "close";
+    }
+  });
+  renderCards();
 };

@@ -61,6 +61,16 @@
   align-items: center;
   margin-bottom: 20px;
 }
+.twoPlayers {
+  border: 2px solid black;
+  width: 250px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .cardsContainer {
   display: flex;
   justify-content: center;
@@ -92,6 +102,17 @@
   -webkit-box-shadow: 1px 5px 16px 5px rgba(66, 68, 90, 1);
   -moz-box-shadow: 1px 5px 16px 5px rgba(66, 68, 90, 1);
   box-shadow: 1px 5px 16px 5px rgba(66, 68, 90, 1);
+}
+.Pair {
+  width: 130px;
+  height: 160px;
+  transform: translateX(-5px);
+  -webkit-box-shadow: 1px 5px 16px 5px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 1px 5px 16px 5px rgba(66, 68, 90, 1);
+  box-shadow: 1px 5px 16px 5px rgba(66, 68, 90, 1);
+}
+.win {
+  color: green;
 }
 .hide {
   display: none;
