@@ -5,6 +5,8 @@ const NameInputContainer: HTMLDivElement = document.querySelector(".nameInput");
 const CardsAccountSelect: HTMLInputElement =
   document.querySelector("#cardsAccout");
 const StartButton: HTMLButtonElement = document.querySelector(".startButton");
+const NewGame = document.querySelector(".newGame");
+const NewGameButton = document.querySelector("#newgameButton");
 
 let playerAccout: string = "1p";
 let cardsAcount: string = "12";
@@ -50,6 +52,7 @@ CardsAccountSelect.addEventListener("change", (e) => {
 StartButton.addEventListener("click", () => {
   StartWindow.classList.add("hide");
   Game.classList.remove("hide");
+
   if (FirstPlayer.trim() == "") {
     FirstPlayer = "FirstPlayer";
   }

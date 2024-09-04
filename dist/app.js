@@ -135,6 +135,7 @@ const OpenCard = (i) => {
             clicks = 0;
             if (pairs1 >= Number(cardsAcount) / 2) {
                 PairsCounterFirst.classList.add("win");
+                NewGame.classList.remove("hide");
             }
         }
     }
@@ -191,6 +192,7 @@ const OpenCard = (i) => {
                 PairsCounterFirst.classList.add("win");
                 PairsCounterSecond.classList.add("win");
             }
+            NewGame.classList.remove("hide");
         }
     }
     renderPanel();
@@ -204,3 +206,14 @@ const HideCard = () => {
     });
     renderCards();
 };
+NewGameButton.addEventListener("click", () => {
+    StartWindow.classList.remove("hide");
+    Game.classList.add("hide");
+    NewGame.classList.add("hide");
+    cards.length = 0;
+    pairs1 = 0;
+    pairs2 = 0;
+    moves = 0;
+    PairsCounterFirst.classList.remove("win");
+    PairsCounterSecond.classList.remove("win");
+});
