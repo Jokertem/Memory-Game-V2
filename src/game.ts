@@ -53,19 +53,28 @@ const renderPanel = () => {
     gamePanel.appendChild(moveTurn);
   }
 };
-const cards = [];
+const cards: ICard[] = [];
 const setCards = () => {
   CardsContainer.classList.add(`cards-${cardsAcount}`);
   const cardsImg = [];
+  const imgId: number[] = [];
 
-  for (let index: number = 1; index < Number(cardsAcount) / 2 + 1; index++) {
-    const element = index;
+  let imgCount = 0;
+  while (imgCount != Number(cardsAcount) / 2) {
+    const element = Math.floor(Math.random() * 12 + 1);
+    if (imgId.includes(element)) {
+      continue;
+    }
+    imgId.push(element);
+
     cardsImg.push(element);
     cardsImg.push(element);
+    imgCount++;
+    console.log(cardsImg);
   }
 
   for (let index = 0; index < Number(cardsAcount); index++) {
-    const card = {
+    const card: ICard = {
       state: "close",
       photo: `Card-${0}.png`,
     };
