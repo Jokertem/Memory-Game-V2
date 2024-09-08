@@ -20,14 +20,12 @@ const SetPlayerAccount = () => {
   FirstInput.autocomplete = "off";
   FirstInput.addEventListener("change", (e) => {
     FirstPlayer = e.target.value;
-    console.log(FirstPlayer);
   });
   const SecondInput: HTMLInputElement = document.createElement("input");
   SecondInput.placeholder = "Second Player Name";
   SecondInput.autocomplete = "off";
   SecondInput.addEventListener("change", (e) => {
     SecondPlayer = e.target.value;
-    console.log(SecondPlayer);
   });
   FirstInput.id = "nameOne";
   SecondInput.id = "nameTwo";

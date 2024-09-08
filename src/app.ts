@@ -55,7 +55,7 @@ const renderPanel = () => {
 };
 const cards: ICard[] = [];
 const setCards = () => {
-  CardsContainer.classList.add(`cards-${cardsAcount}`);
+  CardsContainer.setAttribute("class", `cards-${cardsAcount}`);
   const cardsImg = [];
   const imgId: number[] = [];
 
@@ -70,13 +70,13 @@ const setCards = () => {
     cardsImg.push(element);
     cardsImg.push(element);
     imgCount++;
-    console.log(cardsImg);
   }
 
   for (let index = 0; index < Number(cardsAcount); index++) {
     const card: ICard = {
       state: "close",
       photo: `Card-${0}.png`,
+      alt: "Hide Card",
     };
     cards.push(card);
   }
@@ -84,6 +84,7 @@ const setCards = () => {
     const cardID = Math.floor(Math.random() * cardsImg.length);
 
     element.photo = `./Cards/Card-${cardsImg[cardID]}.jpg`;
+    element.alt = `Photo Number ${cardsImg[cardID]}`;
     const i = cardsImg.indexOf(cardsImg[cardID]);
 
     cardsImg.splice(i, 1);
@@ -98,17 +99,22 @@ const renderCards = () => {
 
     if (element.state == "close") {
       card_.src = `./Cards/Card-0.png`;
+      card_.alt = "Hide Card";
       card_.addEventListener("click", () => OpenCard(index));
     } else if (element.state == "open") {
       card_.src = element.photo;
+      card_.alt = element.alt;
     } else if (element.state == "closeHide") {
       card_.src = `./Cards/Card-0.png`;
+      card_.alt = "Hide Card";
       card_.addEventListener("click", HideCard);
     } else if (element.state == "openHide") {
       card_.src = element.photo;
+      card_.alt = element.alt;
       card_.addEventListener("click", HideCard);
     } else if (element.state == "Pair") {
       card_.src = element.photo;
+      card_.alt = element.alt;
       card_.classList.add("Pair");
     }
     CardsContainer.appendChild(card_);
@@ -183,7 +189,6 @@ const OpenCard = (i) => {
           turn = 1;
           turnInfo = `${FirstPlayer} Turn`;
         }
-        console.log(turn);
       }
 
       clicks = 0;
